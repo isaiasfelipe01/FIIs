@@ -48,6 +48,7 @@ cod = str(input('Código do fundo: ')).upper()
 invest = str(input('Valor a ser investido: R$'))
 invest = invest.replace(',', '.')
 invest = float(invest)
+erro = str(input('Margem de erro em %: '))
 
 
 url = f'https://www.infomoney.com.br/cotacoes/b3/fii/fundos-imobiliarios-'
@@ -95,14 +96,16 @@ qnt = invest/price
 qnt = int(qnt)
 invest = price*qnt
 
+erro_dec = porcent(erro)
 mes_dec = porcent(dy_mensal)
 tri_dec = porcent(dy_trimestral)
 ano_dec = porcent(dy_anual)
 
-rend_mes = ((invest*mes_dec)-(invest*mes_dec*0.05))
-rend_tri = ((invest*tri_dec)-(invest*tri_dec*0.05))
-rend_ano = ((invest*ano_dec)-(invest*ano_dec*0.05))
+rend_mes = ((invest*mes_dec)-(invest*mes_dec*erro_dec))
+rend_tri = ((invest*tri_dec)-(invest*tri_dec*erro_dec))
+rend_ano = ((invest*ano_dec)-(invest*ano_dec*erro_dec))
 
+print(f'Ultilizando a margem de \nerro de {erro}% chegamos \naos redimentos abaixo:\n')
 print(f'Quantidade de cotas: {qnt}')
 print(f'Rendimento (a.m.) R${rend_mes:.2f}')
 print(f'Rendimento (a.t.) R${rend_tri:.2f}')
